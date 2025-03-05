@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:programming_challenge/routes/routes.dart';
-import 'package:programming_challenge/screens/prime_number.dart';
+import 'package:programming_challenge/screens/clock.dart';
 
-void main() {
+void main() async {
   runApp(const MyApp());
 }
 
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
       ),
       themeMode: ThemeMode.dark,
       routes: routes,
-      initialRoute: PrimeNumber.routeName,
+      initialRoute: ClockPage.routeName,
     );
   }
 }

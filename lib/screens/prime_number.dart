@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:programming_challenge/screens/clock.dart';
 
-class PrimeNumber extends StatefulWidget {
+class PrimeNumber extends ClockPage {
   static String routeName = '/prime_number';
-  final int primeNumber;
-  const PrimeNumber({super.key, required this.primeNumber});
+
+  const PrimeNumber({super.key});
 
   @override
   State<PrimeNumber> createState() => _PrimeNumberState();
@@ -44,7 +44,7 @@ class _PrimeNumberState extends State<PrimeNumber> {
                 ),
                 // const SizedBox(height: 10),
                 Text(
-                  'You obtained a prime number,it was: ${widget.primeNumber}',
+                  'You obtained a prime number,it was: <X>',
                   style: TextStyle(fontSize: 14, color: Colors.white),
                 ),
                 // const SizedBox(height: 10),
