@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:programming_challenge/screens/prime_number.dart';
 
 class ClockPage extends StatefulWidget {
   static String routeName = '/clock';
@@ -15,7 +16,6 @@ class ClockPage extends StatefulWidget {
 class _ClockPageState extends State<ClockPage> {
   late Timer _timeUpdateTimer;
   late Timer _apiCallTimer;
-  DateTime? _lastPrimeTime;
   String _formattedTime = '';
   String _formattedDate = '';
   String _calendarWeek = '';
@@ -25,7 +25,6 @@ class _ClockPageState extends State<ClockPage> {
   void initState() {
     super.initState();
     _updateDateTime();
-
     _timeUpdateTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
       _updateDateTime();
     });
@@ -38,24 +37,22 @@ class _ClockPageState extends State<ClockPage> {
   Future<void> _fetchRandomNumber() async {
     try {
       final response = await http.get(
-        Uri.parse(
-          'http://www.randomnumberapi.com/api/v1.0/randomredditnumber?min=1&max=1000&count=1',
-        ),
+        Uri.parse('http://www.randomnumberapi.com/api/v1.0/random'),
       );
-
       final data = json.decode(response.body);
       setState(() {
-        _randomNumber = data;
+        _randomNumber = data[0];
         if (_isPrime(_randomNumber!)) {
-          _showPrimeDialog(_randomNumber!);
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => PrimeNumber(primeNumber: _randomNumber!),
+            ),
+          );
         }
       });
-    } on http.ClientException catch (e) {
-      print('خطا در دریافت عدد تصادفی: ${e.message}');
-      // می‌توانید در اینجا یک دیالوگ خطا به کاربر نمایش دهید.
     } catch (e) {
-      print('خطای ناشناخته: $e');
-      // می‌توانید در اینجا یک دیالوگ خطای عمومی به کاربر نمایش دهید.
+      print('Unknown error: $e');
     }
   }
 
@@ -65,36 +62,6 @@ class _ClockPageState extends State<ClockPage> {
       if (n % i == 0) return false;
     }
     return true;
-  }
-
-  void _showPrimeDialog(int primeNumber) {
-    final now = DateTime.now();
-    final elapsedTime =
-        _lastPrimeTime != null ? now.difference(_lastPrimeTime!) : null;
-    setState(() {
-      _lastPrimeTime = now;
-    });
-    showDialog(
-      context: context,
-      builder:
-          (context) => AlertDialog(
-            title: Text('تبریک!'),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text('شما یک عدد اول پیدا کردید، عدد آن: $primeNumber'),
-                if (elapsedTime != null)
-                  Text('زمان از آخرین عدد اول: ${elapsedTime.inSeconds} ثانیه'),
-              ],
-            ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: Text('بستن'),
-              ),
-            ],
-          ),
-    );
   }
 
   void _updateDateTime() {
@@ -133,8 +100,8 @@ class _ClockPageState extends State<ClockPage> {
             _buildDateAndCalendarWeek(),
             Text(
               _randomNumber != null
-                  ? 'عدد تصادفی: $_randomNumber'
-                  : 'در حال دریافت عدد...',
+                  ? 'Random number: $_randomNumber'
+                  : 'Fetching random number...',
             ),
           ],
         ),
