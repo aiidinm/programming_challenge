@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import 'package:programming_challenge/screens/find_prim_number.dart';
+import 'package:programming_challenge/screens/find_prime_number.dart';
 
 class ClockPage extends StatefulWidget {
   static String routeName = '/clock';
