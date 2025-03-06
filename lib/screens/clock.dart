@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import 'package:programming_challenge/screens/prime_number.dart';
+import 'package:programming_challenge/screens/find_prim_number.dart';
 
 class ClockPage extends StatefulWidget {
   static String routeName = '/clock';
@@ -47,7 +47,6 @@ class _ClockPageState extends State<ClockPage> {
     final response = await http.get(
       Uri.parse('http://www.randomnumberapi.com/api/v1.0/random'),
     );
-
     if (response.statusCode == 200) {
       final List<dynamic> numberList = json.decode(response.body);
       randomNumber = numberList[0];
