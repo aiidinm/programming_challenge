@@ -1,16 +1,21 @@
-# programming_challenge
+# Clock App
 
-A new Flutter project.
+This Flutter application displays the current time and fetches random numbers periodically. If a prime number is found, it stops the request and navigates to a new screen displaying the number and elapsed time.
 
-## Getting Started
+## Patterns & Libraries Used
 
-This project is a starting point for a Flutter application.
+### Patterns:
+- **Stateful Widget**: Used to manage the state of the clock and fetch random numbers since these data need to be updated regularly.
+- **Navigator & Routing**: Used for navigating between `ClockPage` and `PrimeNumber` screens.
 
-A few resources to get you started if this is your first Flutter project:
+### Libraries:
+- **intl**: For formatting date and time.
+- **http**: For fetching random numbers from an API.
+- **async**: For running timers and periodically updating information.
+- **convert**: For processing JSON responses from the API.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Design Assumptions
+- The user should see the current time updating every second, so `Timer.periodic` is used.
+- Random numbers should be fetched every 10 seconds. If a prime number is found, the request stops, and the app navigates to a new screen displaying the found prime number and the elapsed time.
+- The app’s performance should remain stable, so `mounted` is used to check the screen state before using `Navigator.push`.
+- Displaying the elapsed time since the last prime number is essential, so `DateTime.difference` is used for calculation.
