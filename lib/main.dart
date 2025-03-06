@@ -17,9 +17,9 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Roboto',
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
-            fixedSize: WidgetStateProperty.all(Size(80, 35)),
+            fixedSize: WidgetStateProperty.all(Size(85, 45)),
             backgroundColor: WidgetStateProperty.all(Colors.green),
-            padding: WidgetStateProperty.all(EdgeInsets.all(15)),
+
             shape: WidgetStateProperty.all(
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
             ),
